@@ -1,10 +1,8 @@
 package it.polito.students;
 
 import android.app.Application;
-import android.content.Context;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
@@ -61,15 +59,6 @@ public class MainApplication extends Application implements ReactApplication {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       DefaultNewArchitectureEntryPoint.load();
     }
-
-    if (BuildConfig.DEBUG) {
-      try {
-        Class.forName("it.polito.students.ReactNativeFlipper")
-          .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
-          .invoke(null, this, getReactNativeHost().getReactInstanceManager());
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
+    ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 }

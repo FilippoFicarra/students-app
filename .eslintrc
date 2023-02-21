@@ -1,7 +1,7 @@
 {
   "root": true,
   "extends": [
-    "eslint-config-react-typescript",
+    "@react-native-community",
     "prettier"
   ],
   "plugins": [
@@ -20,9 +20,14 @@
   },
   "overrides": [
     {
-      "files": ["*.ts", "*.tsx"],
+      "files": [
+        "*.ts",
+        "*.tsx"
+      ],
       "rules": {
-        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/no-shadow": [
+          "error"
+        ],
         "no-shadow": "off",
         "no-unused-vars": "off",
         "unused-imports/no-unused-imports": "error",
@@ -38,9 +43,16 @@
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-namespace": "off",
         "@typescript-eslint/no-use-before-define": "off",
-        "no-console": ["error", {
-          "allow": ["warn", "error", "debug"]
-        }]
+        "no-console": [
+          "error",
+          {
+            "allow": [
+              "warn",
+              "error",
+              "debug"
+            ]
+          }
+        ]
       }
     }
   ]

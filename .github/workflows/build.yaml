@@ -121,6 +121,10 @@ jobs:
         echo "CONFIGURED:"
         cat $GITHUB_OUTPUT
 
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: '.node-version'
     - name: Cache node modules
       uses: actions/cache@v3
       with:
@@ -151,13 +155,11 @@ jobs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        working-directory: ./android
-        ruby-version: '2.7.6'
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version-file: '.node-version'
     - name: Cache node modules
       uses: actions/cache@v3
       with:
@@ -218,13 +220,11 @@ jobs:
     - name: Setup Ruby
       uses: ruby/setup-ruby@v1
       with:
-        working-directory: ./ios
-        ruby-version: '2.7.6'
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version-file: '.node-version'
     - name: Cache node modules
       uses: actions/cache@v3
       with:
