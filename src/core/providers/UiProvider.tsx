@@ -4,7 +4,6 @@ import { Platform, StatusBar, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { ThemeContext } from '@lib/ui/contexts/ThemeContext';
-import { NavigationContainer } from '@react-navigation/native';
 
 import i18n from 'i18next';
 import { Settings } from 'luxon';
@@ -13,6 +12,7 @@ import en from '../../../assets/translations/en.json';
 import it from '../../../assets/translations/it.json';
 import { deviceLanguage } from '../../utils/device';
 import { fromUiTheme } from '../../utils/navigation-theme';
+import { NavigationContainer } from '../components/NavigationContainer';
 import { usePreferencesContext } from '../contexts/PreferencesContext';
 import { darkTheme } from '../themes/dark';
 import { lightTheme } from '../themes/light';

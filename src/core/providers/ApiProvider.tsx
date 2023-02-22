@@ -2,6 +2,7 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert } from 'react-native';
 import * as Keychain from 'react-native-keychain';
+import Smartlook from 'react-native-smartlook-analytics';
 
 import { ResponseError } from '@polito/api-client/runtime';
 import NetInfo from '@react-native-community/netinfo';
@@ -31,15 +32,22 @@ export const ApiProvider = ({ children }: PropsWithChildren) => {
 
   useEffect(() => {
     // update ApiContext based on the provided token
-    const refreshContext = (credentials?: Credentials) =>
+    const refreshContext = (credentials?: Credentials) => {
+      const isLogged = !!credentials;
+
       setApiContext(() => {
         return {
-          isLogged: !!credentials,
+          isLogged,
           ...credentials,
           clients: createApiClients(credentials?.token),
           refreshContext,
         };
       });
+
+      if (isLogged) {
+        Smartlook.instance.user.setIdentifier(credentials.username);
+      }
+    };
 
     // Retrieve existing token from SecureStore, if any
     Keychain.getGenericPassword()
