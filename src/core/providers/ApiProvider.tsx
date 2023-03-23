@@ -98,7 +98,7 @@ export const ApiProvider = ({ children }: PropsWithChildren) => {
     if (error.response.status === -401) {
       setApiContext(c => ({
         ...c,
-        isLogged: false,
+        isLogged: null,
         token: null,
       }));
       client.invalidateQueries();
