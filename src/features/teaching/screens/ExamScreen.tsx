@@ -33,7 +33,7 @@ import { TeachingStackParamList } from '../components/TeachingNavigator';
 type Props = NativeStackScreenProps<TeachingStackParamList, 'Exam'>;
 
 export const ExamScreen = ({ route, navigation }: Props) => {
-  const { id } = route.params;
+  const { examId: id } = route.params;
   const { t } = useTranslation();
   const { fontSizes } = useTheme();
   const examsQuery = useGetExams();
@@ -90,7 +90,7 @@ export const ExamScreen = ({ route, navigation }: Props) => {
 
   const examAccessibilityLabel = useMemo(() => {
     const title = exam?.courseName;
-    const { date, time: accessibilityTime } = formatDateTimeAccessibility(
+    const { date, time: accessibleTime } = formatDateTimeAccessibility(
       exam?.examStartsAt,
     );
     const classrooms =
@@ -105,7 +105,7 @@ export const ExamScreen = ({ route, navigation }: Props) => {
 
     return `${title}. ${date}. ${t(
       'common.time',
-    )} ${accessibilityTime}. ${classrooms} ${teacher}`;
+    )} ${accessibleTime}. ${classrooms} ${teacher}`;
   }, [exam, t, teacherQuery]);
 
   return (

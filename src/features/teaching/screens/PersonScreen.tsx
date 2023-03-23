@@ -43,7 +43,7 @@ type Props = NativeStackScreenProps<TeachingStackParamList, 'Person'>;
 const profileImageSize = 120;
 
 export const PersonScreen = ({ route }: Props) => {
-  const { id } = route.params;
+  const { personId: id } = route.params;
   const { t } = useTranslation();
   const { colors, fontSizes } = useTheme();
   const styles = useStylesheet(createStyles);

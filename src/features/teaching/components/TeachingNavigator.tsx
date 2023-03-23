@@ -24,10 +24,10 @@ import { TeachingScreen } from '../screens/TeachingScreen';
 import { TranscriptScreen } from '../screens/TranscriptScreen';
 
 export type TeachingStackParamList = {
-  Home: undefined;
+  Teaching: undefined;
   Courses: undefined;
-  Course: { id: number; courseName: string };
-  Person: { id: number };
+  Course: { courseId: number; courseName: string };
+  Person: { personId: number };
   CoursePreferences: { courseId: number };
   CourseDirectory: {
     courseId: number;
@@ -50,7 +50,7 @@ export type TeachingStackParamList = {
   CourseAssignmentUploadConfirmation: { courseId: number; fileUri: string };
   CourseIconPicker: { courseId: number };
   Exams: undefined;
-  Exam: { id: number };
+  Exam: { examId: number };
   Transcript: undefined;
 };
 
@@ -73,7 +73,7 @@ export const TeachingNavigator = () => {
       }}
     >
       <Stack.Screen
-        name="Home"
+        name="Teaching"
         component={TeachingScreen}
         options={{
           headerLeft: () => <HeaderLogo />,
