@@ -83,6 +83,16 @@ export const TeachingScreen = ({ navigation }: Props) => {
     );
   }, [coursesQuery, examsQuery]);
 
+  const {
+    totalCredits,
+    totalAcquiredCredits,
+    totalAttendedCredits,
+    averageGradePurged,
+    averageGrade,
+    estimatedFinalGradePurged,
+    estimatedFinalGrade,
+  } = studentQuery?.data?.data || {};
+
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
@@ -139,48 +149,39 @@ export const TeachingScreen = ({ navigation }: Props) => {
                   <Col spaceBetween>
                     <Metric
                       title={
-                        studentQuery.data?.data.averageGradePurged != null
+                        averageGradePurged != null
                           ? t('transcriptScreen.finalAverageLabel')
                           : t('transcriptScreen.weightedAverageLabel')
                       }
-                      value={
-                        studentQuery.data?.data.averageGradePurged ??
-                        studentQuery.data?.data.averageGrade ??
-                        '--'
-                      }
+                      value={averageGradePurged ?? averageGrade ?? '--'}
                       color={colors.title}
                     />
                     <Metric
                       title={
-                        studentQuery.data?.data.estimatedFinalGradePurged !=
-                        null
+                        estimatedFinalGradePurged != null
                           ? t('transcriptScreen.estimatedFinalGradePurged')
                           : t('transcriptScreen.estimatedFinalGrade')
                       }
                       value={
-                        studentQuery.data?.data.estimatedFinalGradePurged !=
-                        null
-                          ? formatFinalGrade(
-                              studentQuery.data?.data.estimatedFinalGradePurged,
-                            )
-                          : formatFinalGrade(
-                              studentQuery.data?.data.estimatedFinalGrade,
-                            )
+                        estimatedFinalGradePurged != null
+                          ? formatFinalGrade(estimatedFinalGradePurged)
+                          : formatFinalGrade(estimatedFinalGrade)
                       }
                       color={colors.title}
                     />
                   </Col>
                   <ProgressChart
-                    label={`${studentQuery.data?.data.totalAcquiredCredits}/${
-                      studentQuery.data?.data.totalCredits
-                    }\n${t('common.ects')}`}
+                    label={`${totalAcquiredCredits}/${totalCredits}\n${t(
+                      'common.ects',
+                    )}`}
+                    accessibilityLabel={`${totalAcquiredCredits} ${t(
+                      'common.of',
+                    )} ${totalCredits} ${t('common.totalCreditAcquired')}`}
                     data={
                       studentQuery.data
                         ? [
-                            studentQuery.data?.data.totalAttendedCredits /
-                              studentQuery.data?.data.totalCredits,
-                            studentQuery.data?.data.totalAcquiredCredits /
-                              studentQuery.data?.data.totalCredits,
+                            totalAttendedCredits / totalCredits,
+                            totalAcquiredCredits / totalCredits,
                           ]
                         : []
                     }

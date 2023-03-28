@@ -15,7 +15,7 @@ import { CourseIcon } from './CourseIcon';
 interface Props {
   course: CourseOverview;
   accessible?: boolean;
-  accessibilityLabel: string;
+  accessibilityLabel?: string;
 }
 
 const Menu = ({

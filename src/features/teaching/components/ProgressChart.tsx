@@ -19,13 +19,14 @@ type Props = ViewProps & {
 };
 
 export const ProgressChart = ({
-                                data,
-                                colors,
-                                label,
-                                boxSize = 125,
-                                thickness = 16,
-                                radius = 30,
-                                ...rest }: Props) => {
+  data,
+  colors,
+  label,
+  boxSize = 125,
+  thickness = 16,
+  radius = 30,
+  ...rest
+}: Props) => {
   const { dark, colors: themeColors, fontSizes } = useTheme();
 
   return (
@@ -76,6 +77,7 @@ export const ProgressChart = ({
       ))}
       {label && (
         <Col
+          accessible={false}
           justifyCenter
           style={{
             position: 'absolute',
