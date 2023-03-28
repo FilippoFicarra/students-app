@@ -12,12 +12,13 @@ import { Card } from '@lib/ui/components/Card';
 import { Col } from '@lib/ui/components/Col';
 import { Metric } from '@lib/ui/components/Metric';
 import { RefreshControl } from '@lib/ui/components/RefreshControl';
+import { Row } from '@lib/ui/components/Row';
 import { Section } from '@lib/ui/components/Section';
 import { SectionHeader } from '@lib/ui/components/SectionHeader';
 import { SectionList } from '@lib/ui/components/SectionList';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
 import { useTheme } from '@lib/ui/hooks/useTheme';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 import { ExamStatusEnum } from '@polito/api-client';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -83,16 +84,6 @@ export const TeachingScreen = ({ navigation }: Props) => {
     );
   }, [coursesQuery, examsQuery]);
 
-  const {
-    totalCredits,
-    totalAcquiredCredits,
-    totalAttendedCredits,
-    averageGradePurged,
-    averageGrade,
-    estimatedFinalGradePurged,
-    estimatedFinalGrade,
-  } = studentQuery?.data?.data || {};
-
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
@@ -145,43 +136,52 @@ export const TeachingScreen = ({ navigation }: Props) => {
                 onPress={() => navigation.navigate('Transcript')}
                 underlayColor={colors.touchableHighlight}
               >
-                <View style={{ padding: spacing[5], flexDirection: 'row' }}>
-                  <Col spaceBetween>
+                <Row p={5} gap={5} align="stretch" justify="space-between">
+                  <Col justify="space-between">
                     <Metric
                       title={
-                        averageGradePurged != null
+                        studentQuery.data?.data.averageGradePurged != null
                           ? t('transcriptScreen.finalAverageLabel')
                           : t('transcriptScreen.weightedAverageLabel')
                       }
-                      value={averageGradePurged ?? averageGrade ?? '--'}
+                      value={
+                        studentQuery.data?.data.averageGradePurged ??
+                        studentQuery.data?.data.averageGrade ??
+                        '--'
+                      }
                       color={colors.title}
                     />
                     <Metric
                       title={
-                        estimatedFinalGradePurged != null
+                        studentQuery.data?.data.estimatedFinalGradePurged !=
+                        null
                           ? t('transcriptScreen.estimatedFinalGradePurged')
                           : t('transcriptScreen.estimatedFinalGrade')
                       }
                       value={
-                        estimatedFinalGradePurged != null
-                          ? formatFinalGrade(estimatedFinalGradePurged)
-                          : formatFinalGrade(estimatedFinalGrade)
+                        studentQuery.data?.data.estimatedFinalGradePurged !=
+                        null
+                          ? formatFinalGrade(
+                              studentQuery.data?.data.estimatedFinalGradePurged,
+                            )
+                          : formatFinalGrade(
+                              studentQuery.data?.data.estimatedFinalGrade,
+                            )
                       }
                       color={colors.title}
                     />
                   </Col>
                   <ProgressChart
-                    label={`${totalAcquiredCredits}/${totalCredits}\n${t(
-                      'common.ects',
-                    )}`}
-                    accessibilityLabel={`${totalAcquiredCredits} ${t(
-                      'common.of',
-                    )} ${totalCredits} ${t('common.totalCreditAcquired')}`}
+                    label={`${studentQuery.data?.data.totalAcquiredCredits}/${
+                      studentQuery.data?.data.totalCredits
+                    }\n${t('common.ects')}`}
                     data={
                       studentQuery.data
                         ? [
-                            totalAttendedCredits / totalCredits,
-                            totalAcquiredCredits / totalCredits,
+                            studentQuery.data?.data.totalAttendedCredits /
+                              studentQuery.data?.data.totalCredits,
+                            studentQuery.data?.data.totalAcquiredCredits /
+                              studentQuery.data?.data.totalCredits,
                           ]
                         : []
                     }
@@ -190,7 +190,7 @@ export const TeachingScreen = ({ navigation }: Props) => {
                     thickness={18}
                     colors={[colors.primary[400], colors.secondary[500]]}
                   />
-                </View>
+                </Row>
               </TouchableHighlight>
             )}
           </Card>

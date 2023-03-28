@@ -77,8 +77,8 @@ export const ProgressChart = ({
       ))}
       {label && (
         <Col
-          accessible={false}
-          justifyCenter
+          align="center"
+          justify="center"
           style={{
             position: 'absolute',
             ...uniformInsets(0),

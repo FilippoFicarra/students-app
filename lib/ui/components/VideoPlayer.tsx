@@ -6,7 +6,7 @@ import Video from 'react-native-video';
 import { Tab } from '@lib/ui/components/Tab';
 import { Text } from '@lib/ui/components/Text';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 
 export interface VideoPlayerProps {
   videoUrl: string;
@@ -34,9 +34,8 @@ export const VideoPlayer = ({ videoUrl, coverUrl }: VideoPlayerProps) => {
               textStyle={{ textAlign: 'center' }}
               style={styles.speedTab}
               selected={playbackRate === rate}
-            >
-              {rate}x
-            </Tab>
+              children={rate + 'x'}
+            />
           ))}
         </View>
       </View>

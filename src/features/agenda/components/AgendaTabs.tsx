@@ -5,7 +5,7 @@ import { Platform, StyleSheet } from 'react-native';
 import { Tab } from '@lib/ui/components/Tab';
 import { Tabs } from '@lib/ui/components/Tabs';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 
 import { AgendaFiltersState } from '../types/AgendaFiltersState';
 import { AgendaItemTypes } from '../types/AgendaItem';
@@ -73,7 +73,7 @@ export const AgendaTabs = ({ state, toggleState }: Props) => {
 const createStyles = ({ colors, dark }: Theme) =>
   StyleSheet.create({
     tabs: {
-      backgroundColor: colors.surface,
+      backgroundColor: colors.headers,
       borderBottomWidth: Platform.select({
         ios: StyleSheet.hairlineWidth,
       }),

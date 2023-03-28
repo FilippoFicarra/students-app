@@ -17,7 +17,7 @@ import {
 import { IconButton } from '@lib/ui/components/IconButton';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
 import { useTheme } from '@lib/ui/hooks/useTheme';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 import { MenuView, NativeActionEvent } from '@react-native-menu/menu';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useQueryClient } from '@tanstack/react-query';
@@ -106,14 +106,14 @@ export const AgendaScreen = ({ navigation }: Props) => {
   };
 
   const scrollToToday = (isAnimated = false) => {
-    flatListRef.current.scrollToOffset({
+    flatListRef.current?.scrollToOffset({
       offset: agendaStateRef.current.todayOffsetOverall,
       animated: isAnimated,
     });
   };
 
   const scrollToLastOffset = () => {
-    flatListRef.current.scrollToOffset({
+    flatListRef.current?.scrollToOffset({
       offset: agendaState.currentOffset,
       animated: false,
     });
@@ -203,6 +203,7 @@ export const AgendaScreen = ({ navigation }: Props) => {
           ListFooterComponent={
             isFetchingNextPage && <ActivityIndicator size="small" />
           }
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
           scrollEventThrottle={100}
           // onContentSizeChange={(contentWidth, contentHeight) => onContentHeightChange(contentHeight)}
           onScroll={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -238,6 +239,9 @@ const createStyles = ({ spacing }: Theme) =>
       right: 0,
       top: 0,
       bottom: 0,
+    },
+    separator: {
+      height: spacing[8],
     },
     container: { flex: 1 },
     listContainer: {

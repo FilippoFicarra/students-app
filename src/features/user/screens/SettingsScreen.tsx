@@ -19,7 +19,7 @@ import { SectionList } from '@lib/ui/components/SectionList';
 import { SwitchListItem } from '@lib/ui/components/SwitchListItem';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
 import { useTheme } from '@lib/ui/hooks/useTheme';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 import { MenuView } from '@react-native-menu/menu';
 
 import i18next from 'i18next';
@@ -168,7 +168,7 @@ const VisualizationListItem = () => {
       <ListItem
         title={themeLabel(colorScheme)}
         isAction
-        accessibilityLabel={`${t('common.visualization')}: ${themeLabel(
+        accessibilityLabel={`${t('common.theme')}: ${themeLabel(
           colorScheme,
         )}. ${t('settingsScreen.openThemeMenu')}`}
         leadingItem={<ThemeIcon />}
@@ -277,7 +277,7 @@ export const SettingsScreen = () => {
     <ScrollView contentInsetAdjustmentBehavior="automatic">
       <View style={styles.container}>
         <Section>
-          <SectionHeader title={t('common.visualization')} />
+          <SectionHeader title={t('common.theme')} />
           <SectionList indented>
             <VisualizationListItem />
           </SectionList>

@@ -10,7 +10,7 @@ import { Row } from '@lib/ui/components/Row';
 import { SectionList } from '@lib/ui/components/SectionList';
 import { VideoPlayer } from '@lib/ui/components/VideoPlayer';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 import { EventDetails } from '../../../core/components/EventDetails';
@@ -35,7 +35,7 @@ export const LectureScreen = ({ route, navigation }: Props) => {
     if (!lecture.virtualClassrooms.length) return;
 
     // Temporary behaviour until multiple videos in 1 screen are managed
-    const vcId = [...lecture.virtualClassrooms].shift()?.vcId;
+    const vcId = [...lecture.virtualClassrooms].shift()?.id;
     if (!vcId) return;
 
     return virtualClassrooms?.data.find(vcs => vcs.id === vcId);
@@ -50,7 +50,7 @@ export const LectureScreen = ({ route, navigation }: Props) => {
             coverUrl={virtualClassroom?.coverUrl}
           />
         )}
-        <Row maxWidth noFlex spaceBetween alignCenter>
+        <Row justify="space-between" align="center">
           <EventDetails
             title={virtualClassroom?.title ?? lecture.title}
             type={t('common.lecture')}
@@ -76,13 +76,14 @@ export const LectureScreen = ({ route, navigation }: Props) => {
             leadingItem={
               <CourseIcon icon={lecture.icon} color={lecture.color} />
             }
-            linkTo={{
-              screen: 'LectureCourseDirectory',
-              params: {
-                lectureId: lecture.id,
-                courseId: lecture.courseId,
-              },
-            }}
+            disabled
+            // linkTo={{
+            //   screen: 'LectureCourseDirectory',
+            //   params: {
+            //     lectureId: lecture.id,
+            //     courseId: lecture.courseId,
+            //   },
+            // }}
           />
         </SectionList>
       </ScrollView>

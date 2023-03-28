@@ -3,7 +3,7 @@ import { StyleSheet, Text, TextProps, View } from 'react-native';
 
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
 import { useTheme } from '@lib/ui/hooks/useTheme';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 
 interface Props {
   text: string;
@@ -44,8 +44,8 @@ const createStyles = ({ fontSizes, fontWeights, shapes, spacing }: Theme) =>
   StyleSheet.create({
     badge: {
       borderRadius: shapes.xl,
-      paddingHorizontal: spacing[3],
-      paddingVertical: spacing[2],
+      paddingHorizontal: spacing[2],
+      paddingVertical: spacing[1],
     },
     badgeText: {
       color: 'white',

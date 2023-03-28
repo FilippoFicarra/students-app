@@ -8,7 +8,7 @@ import { IconButton } from '@lib/ui/components/IconButton';
 import { Row } from '@lib/ui/components/Row';
 import { Text } from '@lib/ui/components/Text';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
-import { Theme } from '@lib/ui/types/theme';
+import { Theme } from '@lib/ui/types/Theme';
 
 import { Attachment } from '../types/Attachment';
 
@@ -35,7 +35,7 @@ export const AttachmentChip = ({
   }
 
   return (
-    <Row noFlex alignCenter style={[styles.attachmentContainer, style]}>
+    <Row align="center" style={[styles.attachmentContainer, style]}>
       {!loading ? (
         <Icon icon={faFile} style={styles.space} size={18} />
       ) : (
@@ -50,7 +50,7 @@ export const AttachmentChip = ({
           !fullWidth && { maxWidth: 200 },
         ]}
       >
-        {attachment?.name ?? t('common.unnamedFile')}
+        {attachment.name ?? t('common.unnamedFile')}
       </Text>
       {!!onClearAttachment && (
         <IconButton
@@ -79,7 +79,6 @@ const createStyles = ({
       paddingVertical: spacing[1.5],
     },
     name: {
-      flex: 1,
       fontWeight: fontWeights.semibold,
     },
     cancelButton: {
