@@ -102,6 +102,11 @@ export const CourseListItem = ({
             android: (
               <Menu course={course}>
                 <IconButton
+                  accessible={true}
+                  accessibilityRole={'button'}
+                  accessibilityLabel={`${accessibilityLabel} ${course.name},  ${
+                    course.cfu
+                  } ${t('common.credits').toLowerCase()}`}
                   style={{
                     padding: spacing[3],
                   }}
@@ -129,7 +134,9 @@ export const CourseListItem = ({
       <View
         accessible={true}
         accessibilityRole={'button'}
-        accessibilityLabel={`${accessibilityLabel} ${course.name},  ${course.cfu}`}
+        accessibilityLabel={`${accessibilityLabel} ${course.name},  ${
+          course.cfu
+        } ${t('common.credits').toLowerCase()}`}
       >
         <Menu course={course} shouldOpenOnLongPress={true}>
           {listItem}
