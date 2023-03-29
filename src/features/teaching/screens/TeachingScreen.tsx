@@ -137,7 +137,6 @@ export const TeachingScreen = ({ navigation }: Props) => {
         </Section>
         <Section>
           <SectionHeader title={t('common.transcript')} />
-
           <Card style={styles.sectionContent}>
             {studentQuery.isLoading ? (
               <ActivityIndicator style={styles.loader} />
@@ -145,6 +144,7 @@ export const TeachingScreen = ({ navigation }: Props) => {
               <TouchableHighlight
                 onPress={() => navigation.navigate('Transcript')}
                 underlayColor={colors.touchableHighlight}
+                accessibilityRole={'button'}
               >
                 <Row p={5} gap={5} align="stretch" justify="space-between">
                   <Col justify="space-between">
@@ -172,12 +172,15 @@ export const TeachingScreen = ({ navigation }: Props) => {
                     />
                   </Col>
                   <ProgressChart
+                    accessibilityRole={'button'}
                     label={`${totalAcquiredCredits}/${totalCredits}\n${t(
                       'common.ects',
                     )}`}
                     accessibilityLabel={`${totalAcquiredCredits} ${t(
                       'common.of',
-                    )} ${totalCredits} ${t('common.totalCreditAcquired')}`}
+                    )} ${totalCredits} ${t('common.totalCreditAcquired')}. ${t(
+                      'common.doubleClickToDetail',
+                    )}`}
                     data={
                       studentQuery.data
                         ? [

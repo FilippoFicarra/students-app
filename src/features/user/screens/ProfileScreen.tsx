@@ -92,7 +92,7 @@ export const ProfileScreen = ({ navigation }: Props) => {
   const { fontSizes } = useTheme();
   const { mutate: handleLogout } = useLogout();
   const useGetMeQuery = useGetStudent();
-  const student = useGetMeQuery?.data?.data;
+  const student = useGetMeQuery?.data?.data || {};
 
   const styles = useStylesheet(createStyles);
   const refreshControl = useRefreshControl(useGetMeQuery);
@@ -119,7 +119,7 @@ export const ProfileScreen = ({ navigation }: Props) => {
           {student?.firstName} {student?.lastName}
         </Text>
       </Section>
-      <View
+      <Section
         accessible={true}
         accessibilityLabel={`${t('profileScreen.smartCard')}. ${t(
           'common.username',
@@ -128,15 +128,13 @@ export const ProfileScreen = ({ navigation }: Props) => {
           username?.length,
         )}, ${firstName} ${lastName}`}
       >
-        <Section accessible={false}>
-          <SectionHeader title={t('profileScreen.smartCard')} />
-          <ImageLoader
-            imageStyle={styles.smartCard}
-            source={{ uri: student?.smartCardPicture }}
-            containerStyle={styles.smartCardContainer}
-          />
-        </Section>
-      </View>
+        <SectionHeader title={t('profileScreen.smartCard')} />
+        <ImageLoader
+          imageStyle={styles.smartCard}
+          source={{ uri: student?.smartCardPicture }}
+          containerStyle={styles.smartCardContainer}
+        />
+      </Section>
       <Section accessible={false}>
         <SectionHeader
           title={t('profileScreen.course')}

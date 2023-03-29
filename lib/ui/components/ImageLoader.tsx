@@ -23,15 +23,27 @@ export const ImageLoader = ({ source, containerStyle, imageStyle }: Props) => {
   const onLoadStart = () => setLoading(true);
 
   return (
-    <View style={containerStyle} onLayout={() => setSrc(source)}>
+    <View
+      style={containerStyle}
+      onLayout={() => setSrc(source)}
+      accessible={false}
+      accessibilityLabel={''}
+    >
       <Image
+        accessible={false}
+        accessibilityLabel={''}
         resizeMode="contain"
         style={imageStyle}
         onLoadEnd={onLoadEnd}
         onLoadStart={onLoadStart}
         source={src}
       />
-      {loading && <ActivityIndicator style={styles.activityIndicator} />}
+      {loading && (
+        <ActivityIndicator
+          accessible={false}
+          style={styles.activityIndicator}
+        />
+      )}
     </View>
   );
 };
