@@ -1,14 +1,21 @@
 export const formatFileSize = (
   sizeInKiloBytes: number,
   fractionDigit: number = 2,
+  shortDescription: boolean = true,
 ) => {
   if (sizeInKiloBytes < 1000) {
-    return `${sizeInKiloBytes.toFixed(fractionDigit)} KB`;
+    return `${sizeInKiloBytes.toFixed(fractionDigit)} ${
+      shortDescription ? 'KB' : 'Kilobytes'
+    }`;
   }
   if (sizeInKiloBytes < 1000000) {
-    return `${Math.round(sizeInKiloBytes / 1000)} MB`;
+    return `${Math.round(sizeInKiloBytes / 1000)} ${
+      shortDescription ? 'MB' : 'Megabytes'
+    }`;
   }
-  return `${Math.round(sizeInKiloBytes / 1000000)} GB`;
+  return `${Math.round(sizeInKiloBytes / 1000000)} ${
+    shortDescription ? 'GB' : 'Gigabytes'
+  }`;
 };
 
 export const formatFileDate = (date: Date) => {
