@@ -33,8 +33,6 @@ export interface Props {
   showSize?: boolean;
   showLocation?: boolean;
   showCreatedDate?: boolean;
-  onSwipeStart?: () => void;
-  onSwipeEnd?: () => void;
 }
 
 interface MenuProps extends Partial<MenuComponentProps> {
@@ -88,8 +86,6 @@ export const CourseFileListItem = ({
   showSize = true,
   showLocation = false,
   showCreatedDate = true,
-  onSwipeStart,
-  onSwipeEnd,
   ...rest
 }: Props) => {
   const { t } = useTranslation();
@@ -154,7 +150,6 @@ export const CourseFileListItem = ({
           <IconButton
             icon={faCloudArrowDown}
             accessibilityLabel={t('common.download')}
-            adjustSpacing="right"
             onPress={downloadFile}
             {...iconProps}
             hitSlop={{
@@ -166,7 +161,6 @@ export const CourseFileListItem = ({
           <IconButton
             icon={faXmark}
             accessibilityLabel={t('common.stop')}
-            adjustSpacing="right"
             onPress={() => {
               stopDownload();
             }}
@@ -187,7 +181,6 @@ export const CourseFileListItem = ({
               <IconButton
                 icon={faEllipsisVertical}
                 accessibilityLabel={t('common.options')}
-                adjustSpacing="right"
                 {...iconProps}
               />
             </Menu>

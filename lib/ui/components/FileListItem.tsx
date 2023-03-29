@@ -85,7 +85,6 @@ export const FileListItem = ({
   return (
     <ListItem
       accessible={true}
-      accessibilityLabel={`${rest.title} ${subtitle}.${mimeType} ${downloadLabel}`}
       leadingItem={
         <View>
           <Icon icon={getIconFromMimeType(mimeType)} size={fontSizes['2xl']} />
@@ -112,6 +111,9 @@ export const FileListItem = ({
       }
       subtitle={subtitle}
       {...rest}
+      accessibilityLabel={`${rest?.accessibilityLabel || ''} ${
+        rest.title
+      } ${subtitle}.${mimeType} ${downloadLabel}`}
     />
   );
 };
