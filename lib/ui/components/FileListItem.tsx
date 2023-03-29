@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { Pie as ProgressIndicator } from 'react-native-progress';
 
@@ -78,9 +77,6 @@ export const FileListItem = ({
 }: ListItemProps & Props) => {
   const { colors, fontSizes } = useTheme();
   const styles = useStylesheet(createItemStyles);
-  const { t } = useTranslation();
-
-  const downloadLabel = t(`common.downloadStatus.${isDownloaded}`);
 
   return (
     <ListItem
@@ -111,9 +107,6 @@ export const FileListItem = ({
       }
       subtitle={subtitle}
       {...rest}
-      accessibilityLabel={`${rest?.accessibilityLabel || ''} ${
-        rest.title
-      } ${subtitle}.${mimeType} ${downloadLabel}`}
     />
   );
 };

@@ -22,12 +22,18 @@ export const CourseDirectoryListItem = ({
     useNavigation<NativeStackNavigationProp<TeachingStackParamList, any>>();
   const { t } = useTranslation();
 
+  const title = item.name;
+  const subtitle = t('courseDirectoryListItem.subtitle', {
+    count: item.files.length,
+  });
+
   return (
     <DirectoryListItem
-      title={item.name}
-      subtitle={t('courseDirectoryListItem.subtitle', {
-        count: item.files.length,
-      })}
+      title={title}
+      subtitle={subtitle}
+      accessibilityLabel={`${t(
+        'common.doubleClickToOpenDirectory',
+      )} ${title}, ${subtitle}`}
       onPress={() =>
         navigation.navigate('CourseDirectory', {
           courseId,

@@ -81,11 +81,7 @@ export const CourseDirectoryScreen = ({ route, navigation }: Props) => {
               isDirectory(item) ? (
                 <CourseDirectoryListItem item={item} courseId={courseId} />
               ) : (
-                <CourseFileListItem
-                  item={item}
-                  onSwipeStart={() => setScrollEnabled(false)}
-                  onSwipeEnd={() => setScrollEnabled(true)}
-                />
+                <CourseFileListItem item={item} />
               )
             }
             refreshControl={<RefreshControl {...refreshControl} />}
@@ -126,13 +122,7 @@ const CourseFileSearchFlatList = ({ courseId, searchFilter }: SearchProps) => {
       data={searchResults}
       scrollEnabled={scrollEnabled}
       keyExtractor={(item: CourseRecentFile) => item.id}
-      renderItem={({ item }) => (
-        <CourseRecentFileListItem
-          item={item}
-          onSwipeStart={() => setScrollEnabled(false)}
-          onSwipeEnd={() => setScrollEnabled(true)}
-        />
-      )}
+      renderItem={({ item }) => <CourseRecentFileListItem item={item} />}
       {...refreshControl}
       ItemSeparatorComponent={Platform.select({
         ios: () => <IndentedDivider />,

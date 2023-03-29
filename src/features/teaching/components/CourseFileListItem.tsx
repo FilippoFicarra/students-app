@@ -1,6 +1,6 @@
 import { useContext, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Platform } from 'react-native';
+import { Alert, Platform, View } from 'react-native';
 import { extension } from 'react-native-mime-types';
 
 import {
@@ -48,36 +48,38 @@ const Menu = ({
 }: MenuProps) => {
   const { t } = useTranslation();
   return (
-    <MenuView
-      shouldOpenOnLongPress={shouldOpenOnLongPress}
-      title={t('common.file')}
-      actions={[
-        {
-          id: 'refresh',
-          title: t('common.refresh'),
-        },
-        {
-          id: 'delete',
-          title: t('common.delete'),
-          attributes: {
-            destructive: true,
+    <View accessible={false}>
+      <MenuView
+        shouldOpenOnLongPress={shouldOpenOnLongPress}
+        title={t('common.file')}
+        actions={[
+          {
+            id: 'refresh',
+            title: t('common.refresh'),
           },
-        },
-      ]}
-      onPressAction={({ nativeEvent }) => {
-        switch (nativeEvent.event) {
-          case 'refresh':
-            onRefreshDownload();
-            break;
-          case 'delete':
-            onRemoveDownload();
-            break;
-          default:
-        }
-      }}
-    >
-      {children}
-    </MenuView>
+          {
+            id: 'delete',
+            title: t('common.delete'),
+            attributes: {
+              destructive: true,
+            },
+          },
+        ]}
+        onPressAction={({ nativeEvent }) => {
+          switch (nativeEvent.event) {
+            case 'refresh':
+              onRefreshDownload();
+              break;
+            case 'delete':
+              onRemoveDownload();
+              break;
+            default:
+          }
+        }}
+      >
+        {children}
+      </MenuView>
+    </View>
   );
 };
 
@@ -198,15 +200,19 @@ export const CourseFileListItem = ({
     });
   };
 
+  const downloadLabel = t(`common.downloadStatus.${isDownloaded}`);
+  const accessibilityInfo = `${item.name} ${metrics}.${item.mimeType} ${downloadLabel}`;
+  const accessibilityDownloadInfo = !isDownloaded
+    ? downloadProgress == null
+      ? t('common.download')
+      : t('common.stop')
+    : t('common.open');
+
+  const accessibilityLabel = `${accessibilityDownloadInfo}, ${accessibilityInfo} ${downloadLabel}`;
+
   const listItem = (
     <FileListItem
-      accessibilityLabel={
-        !isDownloaded
-          ? downloadProgress == null
-            ? t('common.download')
-            : t('common.stop')
-          : t('common.open')
-      }
+      accessibilityLabel={accessibilityLabel}
       onPress={downloadFile}
       isDownloaded={isDownloaded}
       downloadProgress={downloadProgress}
@@ -220,13 +226,15 @@ export const CourseFileListItem = ({
 
   if (IS_IOS) {
     return (
-      <Menu
-        shouldOpenOnLongPress
-        onRefreshDownload={refreshDownload}
-        onRemoveDownload={removeDownload}
-      >
-        {listItem}
-      </Menu>
+      <View accessible={true} accessibilityLabel={accessibilityLabel}>
+        <Menu
+          shouldOpenOnLongPress
+          onRefreshDownload={refreshDownload}
+          onRemoveDownload={removeDownload}
+        >
+          {listItem}
+        </Menu>
+      </View>
     );
   }
 

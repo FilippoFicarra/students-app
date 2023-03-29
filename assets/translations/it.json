@@ -129,6 +129,7 @@
     "switchCareerLabel": "Premi per affettuare un cambio matricola",
     "doubleClickToOpenMenu": "Doppio click per aprire il menu",
     "doubleClickToDetail": "Doppio click per aprire la scheda completa",
+    "doubleClickToOpenDirectory": "Doppio click per aprire la cartella",
     "examStatus": {
       "available": "Disponibile",
       "booked": "Prenotato",
