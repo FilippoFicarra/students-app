@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 
@@ -43,7 +43,7 @@ const HeaderRightDropdown = ({ student }: { student?: Student }) => {
   const { mutate } = useSwitchCareer();
   const { t } = useTranslation();
   const { colors, spacing } = useTheme();
-  const username = student?.username || '';
+  const [username, setUsername] = useState(student?.username || '');
   const allCareerIds = (student?.allCareerIds || []).map(id => `s${id}`);
   const canSwitchCareer = allCareerIds.length > 1;
 
@@ -61,6 +61,7 @@ const HeaderRightDropdown = ({ student }: { student?: Student }) => {
 
   const onPressAction = ({ nativeEvent: { event } }: NativeActionEvent) => {
     mutate({ username: event });
+    setUsername(event);
   };
 
   return (
@@ -104,7 +105,9 @@ export const ProfileScreen = ({ navigation }: Props) => {
     navigation.setOptions({
       headerRight: () => <HeaderRightDropdown student={student} />,
     });
-  }, [student]);
+  }, [useGetMeQuery]);
+
+  const { firstName, lastName, username } = student;
 
   return (
     <ScrollView
@@ -120,9 +123,10 @@ export const ProfileScreen = ({ navigation }: Props) => {
         accessible={true}
         accessibilityLabel={`${t('profileScreen.smartCard')}. ${t(
           'common.username',
-        )} ${student?.username?.substring(1, student?.username?.length)}, ${
-          student?.firstName
-        } ${student?.lastName}`}
+        )} ${username?.substring(
+          1,
+          username?.length,
+        )}, ${firstName} ${lastName}`}
       >
         <Section accessible={false}>
           <SectionHeader title={t('profileScreen.smartCard')} />
