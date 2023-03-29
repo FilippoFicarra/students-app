@@ -344,7 +344,7 @@ export const useGetCourseLectures = (courseId: number) => {
     | CourseAllOfVcPreviousYears
     | CourseAllOfVcOtherCourses
   )[] = (courseQuery.data?.data.vcPreviousYears ?? []).concat(
-    courseQuery.data?.data.vcOtherCourses,
+    courseQuery.data?.data.vcOtherCourses ?? [],
   );
 
   const relatedVCQueries =
