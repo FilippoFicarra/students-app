@@ -54,6 +54,7 @@ export const CourseAssignmentListItem = ({
   accessibilityListLabel,
   ...rest
 }: Omit<TouchableHighlightProps, 'onPress'> & Props) => {
+  const { t } = useTranslation();
   const { colors, spacing, fontSizes } = useTheme();
   const subTitle = `${formatFileSize(item.sizeInKiloBytes)} - ${formatDateTime(
     item.uploadedAt,
@@ -81,6 +82,9 @@ export const CourseAssignmentListItem = ({
                       style={{
                         padding: spacing[3],
                       }}
+                      accessibilityLabel={`${item.description}. ${t(
+                        'common.doubleClickToOpenMenu',
+                      )}`}
                       icon={faEllipsisVertical}
                       color={colors.secondaryText}
                       size={fontSizes.xl}
