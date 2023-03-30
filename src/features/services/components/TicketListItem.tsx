@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { faComments } from '@fortawesome/free-regular-svg-icons';
 import {
@@ -57,7 +57,13 @@ export const TicketListItem = ({ ticket }: Props) => {
 
   const UnReadCount = () => {
     return (
-      <Col justify="center" align="center" style={styles.unreadCount}>
+      <Col
+        justify="center"
+        align="center"
+        style={styles.unreadCount}
+        accessible={true}
+        accessibilityLabel={t('common.newReplies')}
+      >
         <Text style={styles.unreadCountText}>{ticket?.unreadCount || 0}</Text>
       </Col>
     );
@@ -70,6 +76,10 @@ export const TicketListItem = ({ ticket }: Props) => {
     return Promise.reject();
   };
 
+  const accessibilityLabel = `${parseText(ticket?.subject)} ${formatDateTime(
+    ticket.updatedAt,
+  )}`;
+
   const Item = () => {
     return (
       <ListItem
@@ -81,22 +91,29 @@ export const TicketListItem = ({ ticket }: Props) => {
         subtitle={`${formatDateTime(ticket.updatedAt)} - ${parseText(
           ticket?.message,
         )}`}
+        accessibilityLabel={accessibilityLabel}
         subtitleStyle={styles.listItemSubtitle}
         leadingItem={<Icon icon={faComments} size={20} />}
         trailingItem={
           <Row align="center">
-            {ticket?.hasAttachments && (
-              <Icon
-                icon={faPaperclip}
-                size={20}
-                color={colors.text[400]}
-                style={
-                  ticket.unreadCount === 0 && {
-                    marginHorizontal: spacing[2],
+            <View
+              accessible={true}
+              accessibilityLabel={t('common.questionWithAttachments')}
+              style={{ paddingVertical: spacing[2] }}
+            >
+              {ticket?.hasAttachments && (
+                <Icon
+                  icon={faPaperclip}
+                  size={20}
+                  color={colors.text[400]}
+                  style={
+                    ticket.unreadCount === 0 && {
+                      marginHorizontal: spacing[2],
+                    }
                   }
-                }
-              />
-            )}
+                />
+              )}
+            </View>
             {ticket.unreadCount > 0 && <UnReadCount />}
             {IS_IOS && (
               <Icon

@@ -25,6 +25,7 @@ export const EmptyState = ({
 
   return (
     <View
+      accessible={true}
       style={[
         { padding: _spacing[spacing as unknown as keyof Theme['spacing']] },
         styles.container,

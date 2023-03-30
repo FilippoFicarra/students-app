@@ -130,6 +130,8 @@
     "doubleClickToOpenMenu": "Doppio click per aprire il menu",
     "doubleClickToDetail": "Doppio click per aprire la scheda completa",
     "doubleClickToOpenDirectory": "Doppio click per aprire la cartella",
+    "newReplies": "Ci sono nuove risposte al ticket",
+    "questionWithAttachments": "Domanda con allegati",
     "examStatus": {
       "available": "Disponibile",
       "booked": "Prenotato",
