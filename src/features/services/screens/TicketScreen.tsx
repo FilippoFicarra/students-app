@@ -19,7 +19,6 @@ import {
 
 import { IS_IOS } from '../../../core/constants';
 import { useConfirmationDialog } from '../../../core/hooks/useConfirmationDialog';
-import { useRefreshControl } from '../../../core/hooks/useRefreshControl';
 import { useScreenTitle } from '../../../core/hooks/useScreenTitle';
 import {
   useGetTicket,
@@ -101,8 +100,8 @@ export const TicketScreen = ({ route, navigation }: Props) => {
   const { id } = route.params;
   const styles = useStylesheet(createStyles);
   const ticketQuery = useGetTicket(id);
-  const refreshControl = useRefreshControl(ticketQuery);
   const { mutate: markAsRead } = useMarkTicketAsRead(id);
+  const { t } = useTranslation();
   const { spacing } = useTheme();
   const headerHeight = useHeaderHeight();
   const [textFieldHeight, setTextFieldHeight] = useState(50);
@@ -141,7 +140,6 @@ export const TicketScreen = ({ route, navigation }: Props) => {
           paddingTop: textFieldHeight + +spacing[5],
           paddingBottom: IS_IOS ? headerHeight : undefined,
         }}
-        {...refreshControl}
         data={replies}
         keyExtractor={item => item.id.toString()}
         ListFooterComponent={
@@ -153,7 +151,14 @@ export const TicketScreen = ({ route, navigation }: Props) => {
                 loading={ticketQuery?.isLoading}
               />
               <ChatBubble style={styles.requestMessage}>
-                <TextMessage message={ticket?.message} />
+                <View
+                  accessible={true}
+                  accessibilityLabel={`${t('ticketScreen.yourMessage')}: ${
+                    ticket.message
+                  }`}
+                >
+                  <TextMessage message={ticket?.message} />
+                </View>
                 {ticket.hasAttachments && (
                   <View>
                     {ticket.attachments.map((item, index) => (

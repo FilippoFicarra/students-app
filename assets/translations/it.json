@@ -402,7 +402,9 @@
     "sendError": "C'è stato un'errore nell'invio del messaggio. Riprova.",
     "ticketNumber": "Numero ticket",
     "title": "Ticket",
-    "youCanReopenTheTicket": "Puoi riaprire il ticket in qualsiasi momento, inviando una risposta"
+    "youCanReopenTheTicket": "Puoi riaprire il ticket in qualsiasi momento, inviando una risposta",
+    "yourMessage": "La tua domanda",
+    "agentResponse": "Risposta da operatore"
   },
   "tickets": {
     "close": "Close ticket",
