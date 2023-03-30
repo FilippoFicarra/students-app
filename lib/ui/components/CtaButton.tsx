@@ -12,7 +12,7 @@ import {
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { Icon } from '@lib/ui/components/Icon';
 import { Row } from '@lib/ui/components/Row';
-import { Text } from '@lib/ui/components/Text';
+import { Text, Props as TextProps } from '@lib/ui/components/Text';
 import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
 import { useTheme } from '@lib/ui/hooks/useTheme';
 import { Theme } from '@lib/ui/types/Theme';
@@ -28,6 +28,7 @@ interface Props extends TouchableHighlightProps {
   successMessage?: string;
   destructive?: boolean;
   hint?: string;
+  hintProps?: TextProps;
 }
 
 /**
@@ -49,6 +50,7 @@ export const CtaButton = ({
   rightExtra,
   hint,
   containerStyle,
+  hintProps,
   ...rest
 }: Props) => {
   const { colors, fontSizes, spacing } = useTheme();
@@ -80,7 +82,11 @@ export const CtaButton = ({
         containerStyle,
       ]}
     >
-      {hint && <Text style={styles.hint}>{hint}</Text>}
+      {hint && (
+        <Text style={styles.hint} {...hintProps}>
+          {hint}
+        </Text>
+      )}
       <TouchableHighlight
         accessibilityRole={'button'}
         underlayColor={

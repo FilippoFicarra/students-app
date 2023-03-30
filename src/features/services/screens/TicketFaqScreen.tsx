@@ -40,6 +40,11 @@ export const TicketFaqScreen = ({ route, navigation }: Props) => {
         absolute={false}
         title={t('ticketFaqsScreen.writeTicket')}
         hint={t('ticketFaqsScreen.noResultFound')}
+        hintProps={{
+          accessible: false,
+          importantForAccessibility: 'no',
+        }}
+        accessibilityLabel={t('ticketFaqsScreen.writeTicketNoResultFound')}
         action={() =>
           navigation.navigate('CreateTicket', {
             subtopicId: undefined,

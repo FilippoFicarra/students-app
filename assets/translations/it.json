@@ -395,7 +395,10 @@
     "search": "Cerca (inserisci almeno 3 caratteri)",
     "searchMinLengthHint": "Per favore, inserisci almeno 3 caratteri.",
     "title": "FAQs",
-    "writeTicket": "Scrivi ticket"
+    "writeTicket": "Scrivi ticket",
+    "searchFaqs": "Attiva per cercare le parole chiave inserita tra le faq",
+    "writeTicketNoResultFound": "Scrivi ticket se non hai trovato quello che cerchi",
+    "insertKeywords": "Nessuna parola chiave inserita. Aggiungi una parola chiave per abilitare la ricerca"
   },
   "ticketScreen": {
     "headerBackTitle": "Tickets",

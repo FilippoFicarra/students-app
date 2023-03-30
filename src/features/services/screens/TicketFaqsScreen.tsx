@@ -90,11 +90,17 @@ export const TicketFaqsScreen = ({ navigation }: Props) => {
                 inputStyle={styles.messageInput}
               />
               <IconButton
+                accessibilityLabel={
+                  canSearch
+                    ? t('ticketFaqsScreen.searchFaqs')
+                    : t('ticketFaqsScreen.insertKeywords')
+                }
                 icon={faSearch}
                 loading={ticketFaqsQuery.isFetching}
                 onPress={() => {
                   triggerSearch();
                 }}
+                style={styles.searchButton}
                 disabled={!canSearch}
               />
             </Row>
@@ -134,6 +140,11 @@ export const TicketFaqsScreen = ({ navigation }: Props) => {
             absolute={false}
             title={t('ticketFaqsScreen.writeTicket')}
             hint={t('ticketFaqsScreen.noResultFound')}
+            hintProps={{
+              accessible: false,
+              importantForAccessibility: 'no',
+            }}
+            accessibilityLabel={t('ticketFaqsScreen.writeTicketNoResultFound')}
             action={() =>
               navigation.navigate('CreateTicket', {
                 subtopicId: undefined,
@@ -154,6 +165,7 @@ const createStyles = ({ spacing, colors, fontSizes }: Theme) =>
       paddingTop: spacing[5],
       paddingHorizontal: spacing[5],
     },
+    searchButton: { padding: spacing[4] },
     title: {
       fontSize: fontSizes['3xl'],
       marginBottom: spacing[1],
