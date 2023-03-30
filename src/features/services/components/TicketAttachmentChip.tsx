@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { open } from 'react-native-file-viewer';
 
@@ -26,8 +27,12 @@ export const TicketAttachmentChip = ({
   replyId,
 }: TicketAttachmentChipProps) => {
   const styles = useStylesheet(createStyles);
+  const { t } = useTranslation();
   const [shouldOpen, setShouldOpen] = useState<boolean>(false);
   const isReply = useMemo(() => replyId !== undefined, [replyId]);
+  const accessibilityLabel = `${t('common.attachment')}: ${
+    attachment.filename ?? t('common.unnamedFile')
+  }`;
 
   const { isFetching: isDownloadingReplyAttachment, data: replyAttachment } =
     useGetTicketReplyAttachment(
@@ -66,7 +71,10 @@ export const TicketAttachmentChip = ({
 
   return (
     <ThemeContext.Provider value={darkTheme}>
-      <TouchableOpacity onPress={onPressAttachment}>
+      <TouchableOpacity
+        onPress={onPressAttachment}
+        accessibilityLabel={accessibilityLabel}
+      >
         <AttachmentChip
           fullWidth
           attachment={{

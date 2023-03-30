@@ -124,6 +124,8 @@ export const MessagingView = ({
             }}
           >
             <IconButton
+              accessibilityLabel={t('common.linkFile')}
+              accessibilityRole={'button'}
               icon={faPaperclip}
               size={22}
               style={styles.actionButton}
@@ -142,6 +144,8 @@ export const MessagingView = ({
           />
           {showSendButton && (
             <IconButton
+              accessibilityLabel={t('common.linkFile')}
+              accessibilityRole={'button'}
               disabled={!message?.length}
               onPress={onSend}
               icon={faPaperPlane}
@@ -176,5 +180,6 @@ const createStyles = ({ spacing, colors }: Theme) =>
     actionButton: {
       opacity: Platform.select({ ios: 0.8 }),
       padding: spacing[1.5],
+      paddingHorizontal: spacing[3],
     },
   });

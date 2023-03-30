@@ -131,7 +131,9 @@
     "doubleClickToDetail": "Doppio click per aprire la scheda completa",
     "doubleClickToOpenDirectory": "Doppio click per aprire la cartella",
     "newReplies": "Ci sono nuove risposte al ticket",
+    "attachment": "Allegato",
     "questionWithAttachments": "Domanda con allegati",
+    "linkFile": "Allega file o immagine",
     "examStatus": {
       "available": "Disponibile",
       "booked": "Prenotato",
@@ -404,7 +406,9 @@
     "title": "Ticket",
     "youCanReopenTheTicket": "Puoi riaprire il ticket in qualsiasi momento, inviando una risposta",
     "yourMessage": "La tua domanda",
-    "agentResponse": "Risposta da operatore"
+    "yourResponse": "La tua risposta",
+    "agentResponse": "Risposta da un operatore",
+    "agentResponseFromOperator": "Risposta dall'operatore "
   },
   "tickets": {
     "close": "Close ticket",

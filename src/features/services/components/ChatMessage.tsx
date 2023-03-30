@@ -7,6 +7,7 @@ import { useStylesheet } from '@lib/ui/hooks/useStylesheet';
 import { Theme } from '@lib/ui/types/Theme';
 import { TicketReply } from '@polito/api-client/models/TicketReply';
 
+import { formatDateTime } from '../../../utils/dates';
 import { TextMessage } from './TextMessage';
 import { TicketAttachmentChip } from './TicketAttachmentChip';
 
@@ -45,18 +46,29 @@ export const ChatMessage = ({
     return null;
   };
 
+  const date = formatDateTime(message.createdAt);
+  const agentResponse =
+    message?.isFromAgent && message.agentId
+      ? `${t('ticketScreen.agentResponseFromOperator')}: ${message.agentId}`
+      : `${t('ticketScreen.agentResponse')}`;
+  const accessibilityLabel = `${date}. ${
+    message?.isFromAgent ? agentResponse : t('ticketScreen.yourResponse')
+  }: ${message.message.trim() ?? ''}`;
+
   return (
     <ChatBubble
       direction={received ? 'incoming' : 'outgoing'}
       time={message.createdAt}
       style={styles.bubbleContainer}
     >
-      {!!message?.isFromAgent && message.agentId && (
-        <Text style={styles.agentText}>
-          #{t('common.agent')} {message.agentId}
-        </Text>
-      )}
-      <TextMessage message={message.message?.trim() ?? ''} />
+      <View accessible={true} accessibilityLabel={accessibilityLabel}>
+        {!!message?.isFromAgent && message.agentId && (
+          <Text style={styles.agentText}>
+            #{t('common.agent')} {message.agentId}
+          </Text>
+        )}
+        <TextMessage message={message.message?.trim() ?? ''} />
+      </View>
       <Attachments />
     </ChatBubble>
   );
