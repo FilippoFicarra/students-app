@@ -31,7 +31,10 @@ export const TicketStatusInfo = ({
   const { t } = useTranslation();
   const styles = useStylesheet(createStyles);
   const isClosed = ticket.status === TicketStatus.Closed;
-
+  const subject = ticket?.subject || '';
+  const status = ticket?.status || '';
+  const createdAt = formatDate(ticket.createdAt);
+  const updatedAt = formatDateTime(ticket.updatedAt);
   if (loading) {
     return (
       <Col>
@@ -40,10 +43,20 @@ export const TicketStatusInfo = ({
     );
   }
 
+  const accessibilityLabel = `${subject}. ${t('ticketScreen.ticketNumber')}: ${
+    ticket.id
+  }. ${t('common.createdAt')}: ${createdAt}. ${t(
+    'common.updatedAt',
+  )}: ${updatedAt}. ${t('common.status')}: ${status}`;
+
   return (
-    <Card style={styles.card}>
+    <Card
+      style={styles.card}
+      accessible
+      accessibilityLabel={accessibilityLabel}
+    >
       <Text variant="title" style={styles.row}>
-        {ticket.subject}
+        {subject}
       </Text>
       <Row style={styles.row}>
         <Metric
@@ -53,19 +66,19 @@ export const TicketStatusInfo = ({
         />
         <Metric
           title={t('common.createdAt')}
-          value={formatDate(ticket.createdAt)}
+          value={createdAt}
           style={GlobalStyles.grow}
         />
       </Row>
       <Row style={styles.row}>
         <Metric
           title={t('common.updatedAt')}
-          value={formatDateTime(ticket.updatedAt)}
+          value={updatedAt}
           style={GlobalStyles.grow}
         />
         <Metric
           title={t('common.status')}
-          value={ticket.status}
+          value={status}
           style={GlobalStyles.grow}
           valueStyle={{ textTransform: 'uppercase' }}
         />
