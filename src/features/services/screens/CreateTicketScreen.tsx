@@ -104,6 +104,9 @@ export const CreateTicketScreen = ({ navigation, route }: Props) => {
             }))}
             onSelectOption={updateTopicId}
             disabled={!!initialTopicId}
+            disabledLabel={
+              !initialTopicId && t('createTicketScreen.compilePreviousOptions')
+            }
             value={topicId}
           />
         </SectionList>
@@ -118,6 +121,9 @@ export const CreateTicketScreen = ({ navigation, route }: Props) => {
             })}
             onSelectOption={updateTicketBodyField('subtopicId')}
             disabled={!topicId || !!initialTopicId}
+            disabledLabel={
+              !initialTopicId && t('createTicketScreen.compilePreviousOptions')
+            }
             value={ticketBody?.subtopicId?.toString()}
             label={t('createTicketScreen.subtopic')}
             description={t('createTicketScreen.subtopicDescription')}

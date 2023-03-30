@@ -22,6 +22,7 @@ interface Props {
   label: string;
   description?: string;
   disabled?: boolean;
+  disabledLabel?: string;
 }
 
 export const Select = ({
@@ -31,6 +32,7 @@ export const Select = ({
   label,
   description,
   disabled,
+  disabledLabel,
 }: Props) => {
   const displayedValue = useMemo(() => {
     return options?.find(opt => opt?.id === value)?.title;
@@ -46,6 +48,9 @@ export const Select = ({
       }}
     >
       <ListItem
+        accessibilityLabel={`${label} ${description}. ${
+          disabled ? disabledLabel : ''
+        }`}
         isAction
         disabled={disabled}
         title={displayedValue || label}

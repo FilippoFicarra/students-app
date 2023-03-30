@@ -268,7 +268,8 @@
     "title": "Nuovo ticket",
     "topicDescription": "Seleziona l'argomento",
     "topicDropdownLabel": "Argomento",
-    "topicDropdownPlaceholder": "Seleziona l'argomento"
+    "topicDropdownPlaceholder": "Seleziona l'argomento",
+    "compilePreviousOptions": "Compila i precedenti campi"
   },
   "examScreen": {
     "ctaBook": "Prenota esame",
