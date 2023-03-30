@@ -39,7 +39,11 @@ export const MessageTime = ({ right, time }: TimeWidgetProps) => {
   }
 
   return (
-    <Text variant="caption" style={[styles.hour, right && styles.hourRight]}>
+    <Text
+      variant="caption"
+      style={[styles.hour, right && styles.hourRight]}
+      accessible={false}
+    >
       {timeText || ''}
     </Text>
   );

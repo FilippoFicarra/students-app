@@ -146,14 +146,20 @@ export const TicketListItem = ({ ticket }: Props) => {
   return (
     <>
       {IS_IOS ? (
-        <MenuView
-          title={t('tickets.menuAction')}
-          actions={actions}
-          onPressAction={onPressCloseTicket}
-          shouldOpenOnLongPress={IS_IOS}
+        <View
+          accessible
+          accessibilityLabel={accessibilityLabel}
+          accessibilityRole={'button'}
         >
-          <Item />
-        </MenuView>
+          <MenuView
+            title={t('tickets.menuAction')}
+            actions={actions}
+            onPressAction={onPressCloseTicket}
+            shouldOpenOnLongPress={IS_IOS}
+          >
+            <Item />
+          </MenuView>
+        </View>
       ) : (
         <Item />
       )}

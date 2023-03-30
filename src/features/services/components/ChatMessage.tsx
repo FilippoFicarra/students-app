@@ -8,6 +8,7 @@ import { Theme } from '@lib/ui/types/Theme';
 import { TicketReply } from '@polito/api-client/models/TicketReply';
 
 import { formatDateTime } from '../../../utils/dates';
+import { parseText } from '../../../utils/html-parse';
 import { TextMessage } from './TextMessage';
 import { TicketAttachmentChip } from './TicketAttachmentChip';
 
@@ -46,14 +47,14 @@ export const ChatMessage = ({
     return null;
   };
 
-  const date = formatDateTime(message.createdAt);
+  const date = formatDateTime(message.createdAt, 'DDD, HH e mm');
   const agentResponse =
     message?.isFromAgent && message.agentId
       ? `${t('ticketScreen.agentResponseFromOperator')}: ${message.agentId}`
       : `${t('ticketScreen.agentResponse')}`;
   const accessibilityLabel = `${date}. ${
     message?.isFromAgent ? agentResponse : t('ticketScreen.yourResponse')
-  }: ${message.message.trim() ?? ''}`;
+  }: ${parseText(message.message.trim() ?? '')}`;
 
   return (
     <ChatBubble

@@ -2,12 +2,15 @@ import { DateTime } from 'luxon';
 
 const MACHINE_DATE_REGEX = /([0-9]{4})-0?([0-9]+)-0?([0-9]+)/;
 
-export const formatDate = (date: Date) => {
-  return DateTime.fromJSDate(date).toFormat('dd/MM/yyyy');
+export const formatDate = (date: Date, fmt: string = 'dd/MM/yyyy') => {
+  return DateTime.fromJSDate(date).toFormat(fmt);
 };
 
-export const formatDateTime = (date: Date) => {
-  return DateTime.fromJSDate(date).toFormat('dd/MM/yyyy HH:mm');
+export const formatDateTime = (
+  date: Date,
+  fmt: string = 'dd/MM/yyyy HH:mm',
+) => {
+  return DateTime.fromJSDate(date).toFormat(fmt);
 };
 
 export const formatDateTimeAccessibility = (
