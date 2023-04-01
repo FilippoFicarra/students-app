@@ -225,9 +225,10 @@ export const TranscriptScreen = () => {
                       index,
                       transcriptGrades?.length || 0,
                     ),
-                  )}. ${grade.courseName}: ${formatDate(grade.date)} ${t(
-                    'common.grade',
-                  )}: ${grade?.grade}`}
+                  )}. ${grade.courseName}: ${formatDate(
+                    grade.date,
+                    'dd MMMM yyyy',
+                  )}. ${t('common.grade')}: ${grade?.grade}`}
                   subtitle={formatDate(grade.date)}
                   trailingItem={
                     <Text
