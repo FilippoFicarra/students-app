@@ -70,11 +70,11 @@ export const ExamScreen = ({ route, navigation }: Props) => {
   };
 
   const time = useMemo(() => {
-    if (exam.isTimeToBeDefined) {
+    if (exam?.isTimeToBeDefined) {
       return `${formatDate(exam.examStartsAt)}, ${t('common.timeToBeDefined')}`;
     }
     return formatDateTime(exam.examStartsAt);
-  }, [exam.isTimeToBeDefined, exam.examStartsAt]);
+  }, [exam, exam.examStartsAt]);
 
   const examAccessibilityLabel = useMemo(() => {
     const title = exam?.courseName;
