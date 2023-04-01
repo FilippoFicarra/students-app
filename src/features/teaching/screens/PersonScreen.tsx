@@ -45,7 +45,7 @@ const profileImageSize = 120;
 export const PersonScreen = ({ route }: Props) => {
   const { id } = route.params;
   const { t } = useTranslation();
-  const { colors, fontSizes } = useTheme();
+  const { colors, fontSizes, spacing } = useTheme();
   const styles = useStylesheet(createStyles);
   const personQuery = useGetPerson(id);
   const person: Person = personQuery?.data?.data;
@@ -96,6 +96,7 @@ export const PersonScreen = ({ route }: Props) => {
               onPress={() => Linking.openURL(person?.profileUrl)}
               accessible={true}
               accessibilityRole="link"
+              style={styles.profileUrl}
             >
               <Row align="center">
                 <Icon
@@ -131,25 +132,21 @@ export const PersonScreen = ({ route }: Props) => {
   const renderCourse = (course: PersonCourse, index: number) => {
     const { accessibilityListLabel } = useAccessibility();
 
-    const onPressCourse = () => {
-      // TODO
-      console.debug('onPressCourse', course);
-    };
+    // TODO: handle onPress
 
     const role = useMemo(() => {
       return course.role === 'Titolare' ? 'roleHolder' : 'roleCollaborator';
     }, [course.role]);
+
     return (
       <ListItem
         key={course.id}
         title={course.name}
         subtitle={`${course.year} - ${t('common.' + role)}`}
-        isAction
         accessibilityLabel={`${accessibilityListLabel(
           index,
           courses?.length || 0,
         )}. ${course.name}, ${course.year} -${t('common.' + role)}`}
-        onPress={onPressCourse}
       />
     );
   };
@@ -164,7 +161,7 @@ export const PersonScreen = ({ route }: Props) => {
         <SectionHeader
           title={t('personScreen.contacts')}
           accessibilityLabel={`${t('personScreen.contacts')}. ${
-            phoneNumbers?.length > 0 && t('common.phoneContacts')
+            phoneNumbers?.length > 0 ? t('common.phoneContacts') : ''
           }. ${t('personScreen.sentEmail')}`}
         />
         <SectionList>
@@ -203,6 +200,12 @@ const createStyles = ({ spacing, colors, fontSizes }: Theme) => {
     title: {
       fontSize: fontSizes['2xl'],
     },
+    profileUrl: {
+      padding: spacing[1],
+    },
+    personInfo: {
+      padding: spacing[1],
+    },
     info: {
       paddingLeft: spacing[4],
     },
@@ -216,6 +219,7 @@ const createStyles = ({ spacing, colors, fontSizes }: Theme) => {
     },
     spaceBottom: {
       marginBottom: spacing[2],
+      padding: spacing[0.5],
     },
     linkIcon: {
       marginRight: spacing[2],
