@@ -25,6 +25,7 @@ import { MenuView } from '@react-native-menu/menu';
 import i18next from 'i18next';
 import { Settings } from 'luxon';
 
+import { IS_IOS } from '../../../core/constants';
 import { PreferencesContext } from '../../../core/contexts/PreferencesContext';
 import { useConfirmationDialog } from '../../../core/hooks/useConfirmationDialog';
 import { useDeviceLanguage } from '../../../core/hooks/useDeviceLanguage';
@@ -149,7 +150,11 @@ const VisualizationListItem = () => {
       : t(`theme.${cc}`);
   };
 
-  return (
+  const accessibilityLabel = `${t('common.theme')}: ${themeLabel(
+    colorScheme,
+  )}. ${t('settingsScreen.openThemeMenu')}`;
+
+  const item = (
     <MenuView
       actions={themeColors.map(cc => {
         return {
@@ -168,13 +173,21 @@ const VisualizationListItem = () => {
       <ListItem
         title={themeLabel(colorScheme)}
         isAction
-        accessibilityLabel={`${t('common.theme')}: ${themeLabel(
-          colorScheme,
-        )}. ${t('settingsScreen.openThemeMenu')}`}
+        accessibilityLabel={accessibilityLabel}
         leadingItem={<ThemeIcon />}
       />
     </MenuView>
   );
+
+  if (IS_IOS) {
+    return (
+      <View accessibilityLabel={accessibilityLabel} accessible>
+        {item}
+      </View>
+    );
+  }
+
+  return item;
 };
 const LanguageListItem = () => {
   const { t } = useTranslation();
@@ -187,7 +200,11 @@ const LanguageListItem = () => {
       : t(`common.${cc}`);
   };
 
-  return (
+  const accessibilityLabel = `${t('common.language')}: ${languageLabel(
+    language,
+  )}. ${t('settingsScreen.openLanguageMenu')}`;
+
+  const item = (
     <MenuView
       actions={['it', 'en', 'system'].map(cc => {
         return {
@@ -209,12 +226,20 @@ const LanguageListItem = () => {
       <ListItem
         isAction
         title={languageLabel(language)}
-        accessibilityLabel={`${t('common.language')}: ${languageLabel(
-          language,
-        )}. ${t('settingsScreen.openLanguageMenu')}`}
+        accessibilityLabel={accessibilityLabel}
       />
     </MenuView>
   );
+
+  if (IS_IOS) {
+    return (
+      <View accessibilityLabel={accessibilityLabel} accessible>
+        {item}
+      </View>
+    );
+  }
+
+  return item;
 };
 const NotificationListItem = () => {
   const { t } = useTranslation();

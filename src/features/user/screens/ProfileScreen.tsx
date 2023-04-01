@@ -42,7 +42,8 @@ interface Props {
 const HeaderRightDropdown = ({ student }: { student?: Student }) => {
   const { mutate } = useSwitchCareer();
   const { t } = useTranslation();
-  const { colors, spacing } = useTheme();
+  const { colors } = useTheme();
+  const styles = useStylesheet(createStyles);
   const [username, setUsername] = useState(student?.username || '');
   const allCareerIds = (student?.allCareerIds || []).map(id => `s${id}`);
   const canSwitchCareer = allCareerIds.length > 1;
@@ -66,7 +67,7 @@ const HeaderRightDropdown = ({ student }: { student?: Student }) => {
 
   return (
     <View
-      style={{ padding: spacing[2] }}
+      style={styles.switchButton}
       accessible={true}
       accessibilityRole={canSwitchCareer ? 'button' : 'text'}
       accessibilityLabel={`${t('common.username')} ${username} ${
@@ -175,6 +176,10 @@ const createStyles = ({ spacing, fontSizes }: Theme) =>
       fontSize: fontSizes['2xl'],
       paddingHorizontal: spacing[5],
       paddingTop: spacing[IS_ANDROID ? 4 : 1],
+    },
+    switchButton: {
+      paddingVertical: spacing[2.5],
+      paddingHorizontal: spacing[5],
     },
     smartCard: {
       aspectRatio: 1.586,
