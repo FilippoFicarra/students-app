@@ -30,6 +30,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { innerText } from 'domutils';
 import { parseDocument } from 'htmlparser2';
 
+import { useAccessibility } from '../../../core/hooks/useAccessibilty';
 import { useSearchTicketFaqs } from '../../../core/queries/ticketHooks';
 import { GlobalStyles } from '../../../core/styles/globalStyles';
 import { ServiceStackParamList } from '../components/ServicesNavigator';
@@ -41,6 +42,7 @@ export const TicketFaqsScreen = ({ navigation }: Props) => {
   const styles = useStylesheet(createStyles);
   const [search, setSearch] = useState('');
   const [hasSearchedOnce, setHasSearchedOnce] = useState(false);
+  const { accessibilityListLabel } = useAccessibility();
   const ticketFaqsQuery = useSearchTicketFaqs(search);
   const ticketFaqs =
     ticketFaqsQuery?.data?.data?.sort((a, b) =>
@@ -59,13 +61,13 @@ export const TicketFaqsScreen = ({ navigation }: Props) => {
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         automaticallyAdjustKeyboardInsets
       >
         <Section>
-          <View style={styles.heading}>
+          <View style={styles.heading} accessible={true}>
             <ScreenTitle
               title={t('ticketFaqsScreen.findFAQ')}
               style={styles.title}
@@ -108,13 +110,18 @@ export const TicketFaqsScreen = ({ navigation }: Props) => {
           {hasSearchedOnce && (
             <SectionList>
               {ticketFaqs.length > 0
-                ? ticketFaqs.map(faq => {
+                ? ticketFaqs.map((faq, index) => {
                     const dom = parseDocument(
                       faq.question.replace(/\\r+/g, ' ').replace(/\\"/g, '"'),
                     ) as Document;
                     const title = innerText(dom.children as any[]);
                     return (
                       <ListItem
+                        accessibilityLabel={`${accessibilityListLabel(
+                          index,
+                          ticketFaqs?.length || 0,
+                        )}. ${title}`}
+                        accessibilityRole={'button'}
                         key={faq.id}
                         leadingItem={<Icon icon={faQuestionCircle} size={28} />}
                         linkTo={{

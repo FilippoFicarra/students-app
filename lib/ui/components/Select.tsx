@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
+import { View } from 'react-native';
 
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '@lib/ui/components/Icon';
 import { ListItem } from '@lib/ui/components/ListItem';
 import { MenuView } from '@react-native-menu/menu';
 
-import { IS_ANDROID } from '../../../src/core/constants';
+import { IS_ANDROID, IS_IOS } from '../../../src/core/constants';
 
 interface DropdownOption {
   id: string;
@@ -38,7 +39,7 @@ export const Select = ({
     return options?.find(opt => opt?.id === value)?.title;
   }, [options, value]);
 
-  return (
+  const item = (
     <MenuView
       style={{ width: '100%' }}
       title={label}
@@ -59,4 +60,19 @@ export const Select = ({
       />
     </MenuView>
   );
+
+  if (IS_IOS) {
+    return (
+      <View
+        accessible={true}
+        accessibilityLabel={`${label} ${description}. ${
+          disabled ? disabledLabel : ''
+        }`}
+      >
+        {item}
+      </View>
+    );
+  }
+
+  return item;
 };
