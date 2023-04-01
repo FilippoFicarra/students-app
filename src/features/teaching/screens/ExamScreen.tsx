@@ -74,7 +74,7 @@ export const ExamScreen = ({ route, navigation }: Props) => {
       return `${formatDate(exam.examStartsAt)}, ${t('common.timeToBeDefined')}`;
     }
     return formatDateTime(exam.examStartsAt);
-  }, [exam, exam.examStartsAt]);
+  }, [exam?.isTimeToBeDefined, exam?.examStartsAt]);
 
   const examAccessibilityLabel = useMemo(() => {
     const title = exam?.courseName;
@@ -84,7 +84,7 @@ export const ExamScreen = ({ route, navigation }: Props) => {
     const classrooms =
       exam?.classrooms && exam?.classrooms !== '-'
         ? `${t('examScreen.location')}: ${exam?.classrooms}`
-        : '';
+        : `${t('examScreen.location')}: ${t('common.notSpecified')}`;
     const teacher = teacherQuery.data?.data
       ? `${t('common.teacher')}: ${teacherQuery.data?.data?.firstName} ${
           teacherQuery.data?.data?.lastName
