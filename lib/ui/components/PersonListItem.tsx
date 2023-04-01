@@ -32,6 +32,7 @@ export const PersonListItem = ({
           ? `${subtitle}: ${person.firstName} ${person.lastName}`
           : undefined
       }
+      accessibilityRole={person?.id ? 'button' : undefined}
       linkTo={
         person?.id
           ? {

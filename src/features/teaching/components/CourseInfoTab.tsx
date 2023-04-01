@@ -99,7 +99,7 @@ export const CourseInfoTab = ({ courseId }: CourseTabProps) => {
       </Card>
       <Section>
         <SectionHeader title={t('courseInfoTab.agendaSectionTitle')} />
-        <SectionList emptyStateText={t('common.comingSoon')}></SectionList>
+        <SectionList emptyStateText={t('common.comingSoon')} />
       </Section>
       {courseExamsQuery.data?.length > 0 && (
         <Section>
@@ -127,6 +127,7 @@ export const CourseInfoTab = ({ courseId }: CourseTabProps) => {
         <SectionHeader title={t('courseInfoTab.moreSectionTitle')} />
         <SectionList>
           <ListItem
+            accessibilityRole={'button'}
             title={t('courseGuideScreen.title')}
             linkTo={{ screen: 'CourseGuide', params: { courseId } }}
           />
