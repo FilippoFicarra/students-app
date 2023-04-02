@@ -27,7 +27,7 @@ const Menu = ({
   const { t } = useTranslation();
 
   return (
-    <View accessible={Platform.select({ ios: false })}>
+    <View accessible={Platform.select({ ios: true })}>
       <MenuView
         shouldOpenOnLongPress={shouldOpenOnLongPress}
         actions={[

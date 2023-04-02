@@ -28,63 +28,66 @@ export const ServicesScreen = () => {
     usePreferencesContext();
   const styles = useStylesheet(createStyles);
   const { left, right } = useSafeAreaInsets();
-  const services = [
-    {
-      id: 'tickets',
-      name: t('ticketScreen.title'),
-      icon: faComments,
-      linkTo: { screen: 'Tickets' },
-    },
-    {
-      id: 'appFeedback',
-      name: t('common.appFeedback'),
-      icon: faMobileScreenButton,
-      linkTo: {
-        screen: 'CreateTicket',
-        params: {
-          topicId: 1101,
-          subtopicId: 2001,
-        },
+  const services = useMemo(
+    () => [
+      {
+        id: 'tickets',
+        name: t('ticketScreen.title'),
+        icon: faComments,
+        linkTo: { screen: 'Tickets' },
       },
-      additionalContent: <Badge text="BETA" style={styles.betaBadge} />,
-    },
-    {
-      id: 'contacts',
-      name: t('contactsScreen.title'),
-      icon: faIdCard,
-      disabled: true,
-    },
-    {
-      id: 'guides',
-      name: t('guidesScreen.title'),
-      icon: faSignsPost,
-      disabled: true,
-    },
-    {
-      id: 'jobOffers',
-      name: t('jobOffersScreen.title'),
-      icon: faBriefcase,
-      disabled: true,
-    },
-    {
-      id: 'news',
-      name: t('newsScreen.title'),
-      icon: faBullhorn,
-      disabled: true,
-    },
-    {
-      id: 'bookings',
-      name: t('bookingsScreen.title'),
-      icon: faPersonCirclePlus,
-      disabled: true,
-    },
-    {
-      id: 'library',
-      name: t('libraryScreen.title'),
-      icon: faBookBookmark,
-      disabled: true,
-    },
-  ];
+      {
+        id: 'appFeedback',
+        name: t('common.appFeedback'),
+        icon: faMobileScreenButton,
+        linkTo: {
+          screen: 'CreateTicket',
+          params: {
+            topicId: 1101,
+            subtopicId: 2001,
+          },
+        },
+        additionalContent: <Badge text="BETA" style={styles.betaBadge} />,
+      },
+      {
+        id: 'contacts',
+        name: t('contactsScreen.title'),
+        icon: faIdCard,
+        disabled: true,
+      },
+      {
+        id: 'guides',
+        name: t('guidesScreen.title'),
+        icon: faSignsPost,
+        disabled: true,
+      },
+      {
+        id: 'jobOffers',
+        name: t('jobOffersScreen.title'),
+        icon: faBriefcase,
+        disabled: true,
+      },
+      {
+        id: 'news',
+        name: t('newsScreen.title'),
+        icon: faBullhorn,
+        disabled: true,
+      },
+      {
+        id: 'bookings',
+        name: t('bookingsScreen.title'),
+        icon: faPersonCirclePlus,
+        disabled: true,
+      },
+      {
+        id: 'library',
+        name: t('libraryScreen.title'),
+        icon: faBookBookmark,
+        disabled: true,
+      },
+    ],
+    [t],
+  );
 
   const [favoriteServices, otherServices] = useMemo(
     () =>
@@ -119,6 +122,7 @@ export const ServicesScreen = () => {
           {favoriteServices.map(service => (
             <ServiceCard
               key={service.id}
+              accessibilityRole={!service?.disabled ? 'button' : undefined}
               name={service.name}
               icon={service.icon}
               disabled={service.disabled}
@@ -142,6 +146,7 @@ export const ServicesScreen = () => {
         >
           {otherServices.map(service => (
             <ServiceCard
+              accessibilityRole={!service?.disabled ? 'button' : undefined}
               key={service.id}
               name={service.name}
               icon={service.icon}
