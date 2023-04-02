@@ -270,7 +270,8 @@
     "topicDescription": "Seleziona l'argomento",
     "topicDropdownLabel": "Argomento",
     "topicDropdownPlaceholder": "Seleziona l'argomento",
-    "compilePreviousOptions": "Compila i precedenti campi"
+    "compilePreviousOptions": "Compila i precedenti campi",
+    "doubleClickToOpenDropdown": "Doppio click per aprire il menu di selezione"
   },
   "examScreen": {
     "ctaBook": "Prenota esame",

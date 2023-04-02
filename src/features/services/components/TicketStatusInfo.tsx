@@ -45,9 +45,13 @@ export const TicketStatusInfo = ({
 
   const accessibilityLabel = `${subject}. ${t('ticketScreen.ticketNumber')}: ${
     ticket.id
-  }. ${t('common.createdAt')}: ${createdAt}. ${t(
-    'common.updatedAt',
-  )}: ${updatedAt}. ${t('common.status')}: ${status}`;
+  }. ${t('common.createdAt')}: ${formatDate(
+    ticket.createdAt,
+    'dd MMMM yyyy',
+  )}. ${t('common.updatedAt')}: ${formatDate(
+    ticket.updatedAt,
+    'dd MMMM yyyy, HH:mm',
+  )}. ${t('common.status')}: ${status}`;
 
   return (
     <Card

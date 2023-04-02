@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { View } from 'react-native';
 
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
@@ -35,9 +36,14 @@ export const Select = ({
   disabled,
   disabledLabel,
 }: Props) => {
+  const { t } = useTranslation();
   const displayedValue = useMemo(() => {
     return options?.find(opt => opt?.id === value)?.title;
   }, [options, value]);
+
+  const accessibilityLabel = `${label} ${description}. ${
+    disabled ? disabledLabel : ''
+  }. ${!disabled ? t('createTicketScreen.doubleClickToOpenDropdown') : ''}`;
 
   const item = (
     <MenuView
@@ -49,9 +55,7 @@ export const Select = ({
       }}
     >
       <ListItem
-        accessibilityLabel={`${label} ${description}. ${
-          disabled ? disabledLabel : ''
-        }`}
+        accessibilityLabel={accessibilityLabel}
         isAction
         disabled={disabled}
         title={displayedValue || label}
@@ -65,9 +69,8 @@ export const Select = ({
     return (
       <View
         accessible={true}
-        accessibilityLabel={`${label} ${description}. ${
-          disabled ? disabledLabel : ''
-        }`}
+        accessibilityLabel={accessibilityLabel}
+        accessibilityRole={!disabled ? 'button' : undefined}
       >
         {item}
       </View>
