@@ -40,6 +40,15 @@ export const TicketListItem = ({ ticket }: Props) => {
   });
 
   const markTicketAsClosedEnabled = ticket?.status !== TicketStatus.Closed;
+  const subject = parseText(ticket?.subject ?? '');
+  const updatedAt = formatDateTime(ticket.updatedAt, 'dd MMMM yyyy HH:mm');
+  const attachmentsLabel =
+    ticket?.hasAttachments && IS_IOS
+      ? `${t('common.questionWithAttachments')}`
+      : '';
+  const unreadCountLabel =
+    ticket?.unreadCount > 0 && IS_IOS ? `${t('common.newReplies')}. ` : '';
+  const accessibilityLabel = `${subject} ${updatedAt}. ${attachmentsLabel} ${unreadCountLabel}`;
 
   const actions = useMemo(() => {
     if (markTicketAsClosedEnabled) {
@@ -76,72 +85,66 @@ export const TicketListItem = ({ ticket }: Props) => {
     return Promise.reject();
   };
 
-  const accessibilityLabel = `${parseText(ticket?.subject)} ${formatDateTime(
-    ticket.updatedAt,
-  )}`;
-
-  const Item = () => {
-    return (
-      <ListItem
-        linkTo={{
-          screen: 'Ticket',
-          params: { id: ticket.id },
-        }}
-        title={parseText(ticket?.subject)}
-        subtitle={`${formatDateTime(ticket.updatedAt)} - ${parseText(
-          ticket?.message,
-        )}`}
-        accessibilityLabel={accessibilityLabel}
-        subtitleStyle={styles.listItemSubtitle}
-        leadingItem={<Icon icon={faComments} size={20} />}
-        trailingItem={
-          <Row align="center">
-            <View
-              accessible={true}
-              accessibilityLabel={t('common.questionWithAttachments')}
-              style={{ paddingVertical: spacing[2] }}
-            >
-              {ticket?.hasAttachments && (
-                <Icon
-                  icon={faPaperclip}
-                  size={20}
-                  color={colors.text[400]}
-                  style={
-                    ticket.unreadCount === 0 && {
-                      marginHorizontal: spacing[2],
-                    }
-                  }
-                />
-              )}
-            </View>
-            {ticket.unreadCount > 0 && <UnReadCount />}
-            {IS_IOS && (
+  const item = (
+    <ListItem
+      linkTo={{
+        screen: 'Ticket',
+        params: { id: ticket.id },
+      }}
+      title={parseText(ticket?.subject)}
+      subtitle={`${formatDateTime(ticket.updatedAt)} - ${parseText(
+        ticket?.message,
+      )}`}
+      accessibilityLabel={accessibilityLabel}
+      subtitleStyle={styles.listItemSubtitle}
+      leadingItem={<Icon icon={faComments} size={20} />}
+      trailingItem={
+        <Row align="center">
+          <View
+            accessible={true}
+            accessibilityLabel={t('common.questionWithAttachments')}
+            style={{ paddingVertical: spacing[2] }}
+          >
+            {ticket?.hasAttachments && (
               <Icon
-                icon={faChevronRight}
-                color={colors.secondaryText}
-                style={styles.icon}
+                icon={faPaperclip}
+                size={20}
+                color={colors.text[400]}
+                style={
+                  ticket.unreadCount === 0 && {
+                    marginHorizontal: spacing[2],
+                  }
+                }
               />
             )}
-            {!IS_IOS && markTicketAsClosedEnabled && (
-              <MenuView
-                title={t('tickets.menuAction')}
-                actions={actions}
-                onPressAction={onPressCloseTicket}
-                isAnchoredToRight={true}
-              >
-                <IconButton
-                  style={styles.icon}
-                  icon={faEllipsisVertical}
-                  color={colors.secondaryText}
-                  size={fontSizes.xl}
-                />
-              </MenuView>
-            )}
-          </Row>
-        }
-      />
-    );
-  };
+          </View>
+          {ticket.unreadCount > 0 && <UnReadCount />}
+          {IS_IOS && (
+            <Icon
+              icon={faChevronRight}
+              color={colors.secondaryText}
+              style={styles.icon}
+            />
+          )}
+          {!IS_IOS && markTicketAsClosedEnabled && (
+            <MenuView
+              title={t('tickets.menuAction')}
+              actions={actions}
+              onPressAction={onPressCloseTicket}
+              isAnchoredToRight={true}
+            >
+              <IconButton
+                style={styles.icon}
+                icon={faEllipsisVertical}
+                color={colors.secondaryText}
+                size={fontSizes.xl}
+              />
+            </MenuView>
+          )}
+        </Row>
+      }
+    />
+  );
 
   return (
     <>
@@ -157,11 +160,11 @@ export const TicketListItem = ({ ticket }: Props) => {
             onPressAction={onPressCloseTicket}
             shouldOpenOnLongPress={IS_IOS}
           >
-            <Item />
+            {item}
           </MenuView>
         </View>
       ) : (
-        <Item />
+        item
       )}
     </>
   );
