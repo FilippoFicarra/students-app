@@ -30,6 +30,18 @@ export const CourseVirtualClassroomScreen = ({ route }: Props) => {
   const teacherQuery = useGetPerson(lecture.teacherId);
   const refreshControl = useRefreshControl(virtualClassroomQuery, teacherQuery);
 
+  const accessibilityLabel = [
+    lecture.title ?? '',
+    t('courseVirtualClassroomScreen.title'),
+    formatDateWithTimeIfNotNull(
+      lecture.createdAt,
+      'dd MMMM yyyy',
+      'dd MMMM yyyy HH:mm',
+    ),
+  ]
+    .filter(i => !!i)
+    .join(', ');
+
   return (
     <ScrollView
       contentInsetAdjustmentBehavior="automatic"
@@ -37,6 +49,8 @@ export const CourseVirtualClassroomScreen = ({ route }: Props) => {
     >
       <VideoPlayer videoUrl={lecture.videoUrl} coverUrl={lecture.coverUrl} />
       <EventDetails
+        accessible
+        accessibilityLabel={accessibilityLabel}
         title={lecture.title}
         type={t('courseVirtualClassroomScreen.title')}
         time={formatDateWithTimeIfNotNull(lecture.createdAt)}

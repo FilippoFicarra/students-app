@@ -22,11 +22,15 @@ export const formatDateTimeAccessibility = (
   };
 };
 
-export const formatDateWithTimeIfNotNull = (date: Date) => {
+export const formatDateWithTimeIfNotNull = (
+  date: Date,
+  fmtDate: string = 'dd/MM/yyyy',
+  fmtDateTime: string = 'dd/MM/yyyy HH:mm',
+) => {
   if (!date.getHours()) {
-    return formatDate(date);
+    return formatDate(date, fmtDate);
   }
-  return formatDateTime(date);
+  return formatDateTime(date, fmtDateTime);
 };
 
 export const formatMachineDate = (date: Date) => {
@@ -37,8 +41,8 @@ export const formatMachineDate = (date: Date) => {
   );
 };
 
-export const formatTime = (date: Date) => {
-  return `${date.getHours()}:${date.getMinutes().toString().padStart(2, '0')}`;
+export const formatTime = (date: Date, fmt = 'HH:mm') => {
+  return DateTime.fromJSDate(date).toFormat(fmt);
 };
 
 const today = DateTime.now();
